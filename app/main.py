@@ -1,20 +1,22 @@
 def copy_file(command: str) -> None:
     parts = command.split()
     if len(parts) != 3:
-        return  # неправильный формат команды
+        return
 
-    cmd, src, dst = parts
+    cmd, source_file_name, destination_file_name = parts
     if cmd != "cp":
-        return  # неизвестная команда
+        return
 
-    # 🧩 Новая проверка — копирование файла "в самого себя"
-    if src == dst:
+    if source_file_name == destination_file_name:
         return
 
     try:
-        with open(src, "r") as f_in, open(dst, "w") as f_out:
+        with (open(source_file_name, "r") as f_in,
+              open(destination_file_name, "w") as f_out):
             f_out.write(f_in.read())
+
     except FileNotFoundError:
-        print(f"Source file '{src}' not found.")
-    except Exception as e:
-        print(f"An error occurred: {e}")
+        pass
+
+    except Exception:
+        pass
